@@ -1,0 +1,27 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Se ejecuta cuando haces push a la rama main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Si tienes solo HTML, CSS, JS (sin compilación)
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .  # Carpeta raíz del sitio
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
